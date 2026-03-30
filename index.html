@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhoneGet PRO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-particles" id="bg-particles" aria-hidden="true"></div>
+    <div class="app-container">
+        <header>
+            <div class="header-info">
+                <div class="avatar">🤖</div>
+                <div class="user-details">
+                    <h1>PhoneGet <span class="badge">PRO</span></h1>
+                    <p class="balance-big"><span id="balance">0</span> ₽</p>
+                    <p class="income-text">Доход: +<span id="income">0</span> ₽/сек</p>
+                </div>
+            </div>
+            <div class="topbar" style="margin-top: 12px;">
+                <div class="segmented" aria-label="Режим устройства">
+                    <button type="button" id="device-mobile" class="active">Mobile</button>
+                    <button type="button" id="device-pc">PC</button>
+                </div>
+                <div class="market-state" aria-label="Состояние рынка">
+                    <span class="pulse-dot" aria-hidden="true"></span>
+                    <span id="market-state-label">Стабильно</span>
+                </div>
+                <button type="button" class="icon-btn" id="settings-btn" aria-label="Настройки">⚙️</button>
+            </div>
+        </header>
+
+        <nav class="tabs" aria-label="Разделы">
+            <button type="button" class="tab-btn active" data-tab="mining">⛏️ Майнинг</button>
+            <button type="button" class="tab-btn" data-tab="avito">🛒 Авито</button>
+            <button type="button" class="tab-btn" data-tab="cases">🎰 Кейсы</button>
+            <button type="button" class="tab-btn" data-tab="quests">🧩 Квесты</button>
+            <button type="button" class="tab-btn" data-tab="workshop">🛠️ Сервис</button>
+            <button type="button" class="tab-btn" data-tab="delivery">🚚 Доставка</button>
+            <button type="button" class="tab-btn" data-tab="auctions">🏴 Аукционы</button>
+            <button type="button" class="tab-btn" data-tab="office">🏢 Офис</button>
+            <button type="button" class="tab-btn" data-tab="inventory">📦 Склад</button>
+        </nav>
+
+        <main>
+            <section id="mining" class="screen active">
+                <div class="clicker-area" id="clicker">
+                    <div class="main-phone">📱</div>
+                    <p class="hint center">Без тапов. Нажимай кнопку и добывай телефоны.</p>
+                    <button type="button" class="action-btn big progress-btn" id="get-phone-btn">
+                        <div class="bar" id="get-phone-bar" aria-hidden="true"></div>
+                        <span class="label" id="get-phone-label">📦 Получить телефон</span>
+                    </button>
+                    <div class="hint center" id="get-phone-hint"></div>
+                </div>
+
+                <section class="panel">
+                    <div class="panel-row">
+                        <button type="button" class="action-btn" id="daily-btn">🎁 Ежедневный бонус</button>
+                        <div class="hint" id="daily-hint"></div>
+                    </div>
+
+                    <div class="panel-row" style="margin-top: 10px;">
+                        <button type="button" class="action-btn" id="hack-btn">🧑‍💻 Взлом фермы</button>
+                        <div class="hint" id="hack-hint"></div>
+                    </div>
+
+                    <h2 class="panel-title">Улучшения</h2>
+                    <div id="upgrades-list" class="upgrades-list"></div>
+                </section>
+            </section>
+
+            <section id="avito" class="screen hidden">
+                <h2>Авито</h2>
+                <div class="avito-layout">
+                    <section class="panel">
+                        <h3 class="panel-title" style="margin-top:0;">Свежие объявления</h3>
+                        <div id="market-list" class="grid-list"></div>
+                    </section>
+                    <section class="panel avito-chat">
+                        <h3 class="panel-title" style="margin-top:0;">Чат</h3>
+                        <div id="chat-empty" class="hint">Выбери объявление, чтобы начать торг.</div>
+                        <div id="chat-thread" class="chat-thread" aria-live="polite"></div>
+                        <div id="chat-actions" class="chat-actions hidden" aria-label="Действия в чате">
+                            <button type="button" class="action-btn" data-chat-style="friendly">🙂 Дружелюбно</button>
+                            <button type="button" class="action-btn" data-chat-style="neutral">😐 Норм</button>
+                            <button type="button" class="action-btn" data-chat-style="hard">😤 Жёстко</button>
+                            <button type="button" class="action-btn" data-chat-action="offer-5">-5%</button>
+                            <button type="button" class="action-btn" data-chat-action="offer-10">-10%</button>
+                            <button type="button" class="action-btn" data-chat-action="offer-15">-15%</button>
+                            <button type="button" class="buy-btn" data-chat-action="accept">Купить</button>
+                            <button type="button" class="action-btn" data-chat-action="leave">Выйти</button>
+                        </div>
+                        <div class="hint" id="chat-hint"></div>
+                    </section>
+                </div>
+            </section>
+
+            <section id="cases" class="screen hidden">
+                <h2>Кейсы</h2>
+                <section class="panel">
+                    <p class="hint" id="cases-hint"></p>
+                    <div id="cases-list" class="upgrades-list"></div>
+                    <div class="roulette" id="roulette" aria-label="Рулетка кейса" role="group">
+                        <div class="roulette-window" aria-hidden="true"></div>
+                        <div class="roulette-track" id="roulette-track"></div>
+                    </div>
+                    <div id="case-result" class="case-result" aria-live="polite"></div>
+                </section>
+            </section>
+
+            <section id="quests" class="screen hidden">
+                <h2>Квесты</h2>
+                <section class="panel">
+                    <p class="hint">Выполняй задания — получай деньги и бонусы к добыче.</p>
+                    <div id="quests-list" class="upgrades-list"></div>
+                </section>
+            </section>
+
+            <section id="inventory" class="screen hidden">
+                <h2>Ваши фермы</h2>
+                <div id="inventory-list" class="grid-list"></div>
+            </section>
+
+            <section id="workshop" class="screen hidden">
+                <h2>Сервис и ремонт</h2>
+                <section class="panel">
+                    <div class="panel-row">
+                        <div class="hint" id="parts-hint"></div>
+                        <button type="button" class="action-btn" id="buy-parts-btn">🧩 Купить запчасти</button>
+                    </div>
+                    <div id="workshop-list" class="grid-list"></div>
+                </section>
+            </section>
+
+            <section id="delivery" class="screen hidden">
+                <h2>Доставка</h2>
+                <section class="panel">
+                    <p class="hint">Купленные лоты приезжают не сразу. Улучшай курьера — будет быстрее.</p>
+                    <div id="delivery-list" class="grid-list"></div>
+                </section>
+            </section>
+
+            <section id="auctions" class="screen hidden">
+                <h2>Чёрный рынок</h2>
+                <section class="panel">
+                    <p class="hint">Редкие лоты и прототипы. Ставки против ботов.</p>
+                    <div id="auction-box" class="panel"></div>
+                    <div class="panel-row" style="margin-top: 10px;">
+                        <button type="button" class="action-btn" id="auction-bid-1">+1%</button>
+                        <button type="button" class="action-btn" id="auction-bid-5">+5%</button>
+                        <button type="button" class="buy-btn" id="auction-bid-max">Поставить всё</button>
+                    </div>
+                    <div class="hint" id="auction-hint"></div>
+                </section>
+            </section>
+
+            <section id="office" class="screen hidden">
+                <h2>Престиж и офис</h2>
+                <section class="panel">
+                    <div class="panel-row">
+                        <div>
+                            <div class="panel-title" style="margin-top:0;">Уровень</div>
+                            <div class="hint" id="prestige-hint"></div>
+                        </div>
+                        <button type="button" class="action-btn" id="prestige-btn">✨ Престиж</button>
+                    </div>
+                    <div class="panel" style="margin-top: 12px;">
+                        <div class="panel-title" style="margin-top:0;">Коллекции</div>
+                        <div id="collections-list" class="upgrades-list"></div>
+                    </div>
+                </section>
+            </section>
+        </main>
+        <nav class="tabbar" aria-label="Навигация">
+            <button type="button" class="active" data-tab="mining">⛏️</button>
+            <button type="button" data-tab="avito">🛒</button>
+            <button type="button" data-tab="inventory">📦</button>
+            <button type="button" data-tab="workshop">🛠️</button>
+            <button type="button" data-tab="office">🏢</button>
+        </nav>
+    </div>
+
+    <div class="modal-backdrop" id="settings-backdrop" role="dialog" aria-modal="true" aria-label="Настройки">
+        <div class="modal">
+            <div class="modal-head">
+                <div class="modal-title">Настройки</div>
+                <button type="button" class="modal-close" id="settings-close">Закрыть</button>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <div style="font-weight:900;">Листья на фоне</div>
+                    <div class="hint">Эффекты частиц можно выключить.</div>
+                </div>
+                <select id="setting-leaves" class="select">
+                    <option value="on">Вкл</option>
+                    <option value="off">Выкл</option>
+                </select>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <div style="font-weight:900;">Акцент темы</div>
+                    <div class="hint">Синий / Неоновый / Розовый</div>
+                </div>
+                <select id="setting-accent" class="select">
+                    <option value="blue">Синий</option>
+                    <option value="neon">Неоновый</option>
+                    <option value="pink">Розовый</option>
+                </select>
+            </div>
+            <div class="panel" style="margin-top: 12px;">
+                <div class="panel-title" style="margin-top:0;">Статистика</div>
+                <div class="hint" id="stats-text" style="text-align:left;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
